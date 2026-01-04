@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const blogSchema = new Schema({
-  title: String, 
-  content: String,
+  title: {type:String,required:true}, 
+  content: {type:String,required:true},
   updated_content: String,
   url: String,
   related_articles: [String],
