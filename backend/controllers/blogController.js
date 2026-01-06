@@ -1,4 +1,5 @@
 import { Blog } from "../models/Blogs.js";
+import { processSingleArticle } from "../services/articleProcessor.js";
 
 export const getArticles=async(req,res)=>{
     try {
@@ -39,4 +40,12 @@ export const deleteArticle=async(req,res)=>{
     } catch (error) {
         res.status(500).json({message:error.message});
     }
+}
+
+export const processArticleController=async(req,res)=>{
+    res.status(202).json({ message: "Processing started in background..." });
+
+    processSingleArticle(req.params.id).catch(err => {
+        console.error("Background processing failed:", err);
+    });
 }
