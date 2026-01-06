@@ -5,7 +5,7 @@ const ai=new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const rewriteArticle=async (original,comp1,comp2)=>{
 
-    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" ,generationConfig: { responseMimeType: "text/plain" }});
+    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" ,generationConfig: { responseMimeType: "application/json" }});
 
     const prompt = `
         Act as a Senior SEO Content Strategist and Expert Editor. Your task is to perform a "Content Gap and Optimization Rewrite" of an original article.
@@ -32,6 +32,28 @@ export const rewriteArticle=async (original,comp1,comp2)=>{
         - Do NOT include any introductory remarks like "Here is your rewritten article."
         - Do NOT include any closing summaries or follow-up notes.
         - Start immediately with the Article Title (H1) and end with the final paragraph.
+
+        ### OUTPUT FORMAT
+        Return a JSON object with the following structure:
+        {
+          "title": "A compelling H1 title",
+          "introduction": "2-3 paragraphs of intro text",
+          "sections": [
+            {
+              "heading": "Subheading text",
+              "content": "Detailed paragraph content for this section"
+            }
+          ],
+          "conclusion": "Final wrap-up text",
+          "references": ["url1", "url2"]
+        }
+
+        STRICT RULE: Return ONLY the JSON object. No markdown code blocks, no intro text.
+        
+        ### FINAL CRITICAL RULE
+        Return ONLY the raw JSON string. 
+        DO NOT include "json" or triple backticks ( \`\`\` ). 
+        Start the response with { and end it with }.
         `;
 
     try {
