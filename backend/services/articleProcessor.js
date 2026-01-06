@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import fetch from 'node-fetch';
 import puppeteer from 'puppeteer';
 import { rewriteArticle } from './llmService.js';
 import { Blog } from '../models/Blogs.js';
