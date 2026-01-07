@@ -18,7 +18,23 @@ This assignment required building a system that moves beyond simple "AI wrappers
 4. **Strategic Rewrite**: Generating a comprehensive, SEO-optimized version of the content.
 
 ### System Architecture
+```mermaid
+graph LR
+    User([User]) --> Dash[React Dashboard]
+    Dash -->|Trigger| API[Express API]
+    
+    subgraph Pipeline [Data Extraction & AI Optimization]
+        API -->|1. Search| GSearch[Google Search API]
+        GSearch -->|2. Links| API
+        API -->|3. Scrape| Cheerio[Cheerio Engine]
+        Cheerio -->|4. Context| API
+        API -->|5. Gap Analysis| Gemini[Gemini]
+        Gemini -->|6. Structured JSON| API
+    end
 
+    API -->|7. Persist| DB[(MongoDB Atlas)]
+    DB -->|8. Sync| Dash
+```
 ---
 
 ##  Technical Stack
@@ -53,6 +69,13 @@ Standard browser-based scraping (Puppeteer) is often too heavy for cloud environ
 The LLM prompt is engineered to act as a strategist, not just a writer. It takes the **Original Content**, **Competitor A**, and **Competitor B** to perform a comparative analysis, ensuring the output is objectively more detailed and data-rich than the original.
 
 ---
+
+## Implementation
+
+<img width="1280" height="759" alt="Screenshot 2026-01-07 at 8 42 41 PM" src="https://github.com/user-attachments/assets/9cd4564e-81ee-4587-bc70-6ef5c584486f" />
+
+<img width="1280" height="760" alt="Screenshot 2026-01-07 at 8 43 19 PM" src="https://github.com/user-attachments/assets/1fb6e73b-0fde-4f2e-a406-01278148cb35" />
+
 
 ## 📂 Project structure
 
